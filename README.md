@@ -2,6 +2,8 @@
 
 ## Chapter 1: LeRobot SO-101 Installation (*Refer to [Hugging Face](https://huggingface.co/docs/lerobot/v0.5.1/en/installation)*)
 
+On a new **Terminal**
+
 ### Step 1: Install Miniforge
 
 Navigate to your workspace:
@@ -94,6 +96,8 @@ pip install "lerobot[all]"
 
 ## Chapter 2: llama.cpp Installation on Ubuntu (*Refer to [llama.cpp](https://github.com/ggml-org/llama.cpp)*)
 
+On a new **Terminal**
+
 ### Step 1: Install Build Tools
 
 ```bash
@@ -134,10 +138,7 @@ Available options include:
 
 [Ubuntu x64 (OpenVINO)](https://github.com/ggml-org/llama.cpp/releases/download/b9444/llama-b9444-bin-ubuntu-openvino-2026.0-x64.tar.gz)
 
-
-### Step 5: Copy the Binaries
-
-Extract the downloaded archive and navigate to the extracted `llama-bXXXX` directory.
+Once finised, extract the downloaded archive and navigate to the extracted `llama-bXXXX` directory.
 
 Copy all files into the llama.cpp build directory:
 
@@ -145,7 +146,7 @@ Copy all files into the llama.cpp build directory:
 cp -rf * <path-to-llama.cpp>/build/bin/
 ```
 
-### Step 6: Run llama.cpp
+### Step 5: Run llama.cpp
 
 Navigate to the build directory:
 
@@ -156,8 +157,12 @@ cd <path-to-llama.cpp>/build/bin
 #### Option 1: Start the OpenAI-Compatible Server
 
 ```bash
-./llama-server -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_XL
+./llama-server -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_XL --ui-mcp-proxy
 ```
+
+> **Notes:**
+> * The default server port is **8080**.
+> * `--ui-mcp-proxy` is required to use MCP servers through the built-in web UI.
 
 After startup, open:
 
@@ -171,15 +176,20 @@ http://localhost:8080
 ./llama-cli -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_XL
 ```
 
-**Note:** The model is downloaded automatically on first launch. Any compatible GGUF model from Hugging Face can be used by replacing the model identifier.
+> **Notes:**
+> * The model is downloaded automatically on first launch.
+> * Any compatible GGUF model from Hugging Face can be used by replacing the model identifier.
 
 #### Common Parameters
 
 ```bash
--c 20480      # Context size
---port 10000  # Server port
--ngl 999      # Offload all supported layers to the GPU
--t 16         # Number of CPU threads
+--host 0.0.0.0 # Accept connections from any network interface
+--port 2424    # Listen on TCP port 2424
+--ui-mcp-proxy # Enable MCP server integration in the web UI
+-c 20480       # Context window size (20,480 tokens)
+-ngl 999       # Offload as many layers as possible to the GPU
+-t 16          # Number of CPU worker threads
+...
 ```
 
 ## Chapter 3: MCP Installation
@@ -189,6 +199,8 @@ This chapter builds upon and extends work by *[Ilia Larchenko](https://github.co
 Modifications and additions have been made to adapt the software for MCP integration, deployment workflows, and the functionality described in this repository.
 
 Original work: *[robot_mcp](https://github.com/IliaLarchenko/robot_MCP)*
+
+On a new **Terminal**
 
 ### Step 1: Activate the LeRobot Environment
 
@@ -252,9 +264,21 @@ mcp run mcp_robot_server.py --transport streamable-http
 
 Once the llama.cpp server is running:
 
-1. Open the llama.cpp Web UI.
+1. Open the llama.cpp Web UI:
+
+  `http://localhost:<port>/`
+
+   Default `<port>` is **8080**
+
 2. Navigate to **MCP Servers**.
-3. Add the LeRobot SO-101 MCP server.
-4. Verify that the server status shows **Connected**.
+3. Add the LeRobot SO-101 MCP server:
+
+   `http://127.0.0.1:<port>`
+
+   Default `<port>` is **4001**
+
+4. Enable **Use llama-server proxy**
+5. Hit **Update**
+6. Verify that the server status shows **Connected**.
 
 # DONE!
