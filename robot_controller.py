@@ -50,8 +50,7 @@ class MoveResult:
 class RobotController:
     # Robot type mapping
     ROBOT_TYPES = {
-        #"so100": (SO100Follower, SO100FollowerConfig),
-        "so101": (SO101Follower, SO101FollowerConfig),
+        "LeRobot SO-101": (SO101Follower, SO101FollowerConfig),
     }
 
     def __init__(self, read_only: bool = False):
