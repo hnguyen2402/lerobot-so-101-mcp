@@ -25,6 +25,11 @@ chmod +x Miniforge3-$(uname)-$(uname -m).sh
 bash Miniforge3-$(uname)-$(uname -m).sh
 ```
 
+> **Notes:**
+> * Close the current terminal and open a new one so that Conda is properly initialized.
+> * To disable automatic activation of the base Conda environment:
+> `conda config --set auto_activate_base False`
+
 ### Step 2: Set Up the Conda Environment
 
 Initialize Conda:
@@ -53,13 +58,6 @@ conda install -y -c conda-forge ffmpeg
 
 ### Step 3: Install LeRobot
 
-Clone the repository:
-
-```bash
-git clone https://github.com/huggingface/lerobot.git
-cd lerobot
-```
-
 Install system dependencies:
 
 ```bash
@@ -78,21 +76,40 @@ sudo apt install -y  \
   libavfilter-dev
 ```
 
-Install LeRobot in editable mode:
+> **Notes:**
+> * Follow "Option #1" if planned to contribute to the code.
+> * Follow "Option #2" if not planned to contribute to the code.
+
+#### Option 1: Installation from source
+
+Clone the repository:
+
+```bash
+git clone https://github.com/huggingface/lerobot.git
+cd lerobot
+```
+
+Install the library in editable mode:
 
 ```bash
 pip install -e .
 ```
 
-Optional:
+#### Option 2: Installation from PyPI
 
 ```bash
 pip install lerobot
 ```
 
+> **Note:**
+> This installs only the default dependencies.
+
 ```bash
-pip install "lerobot[all]"
+pip install 'lerobot[all]'
 ```
+
+> **Note:**
+> This installs all available features.
 
 ## Chapter 2: llama.cpp Installation on Ubuntu (*Refer to [llama.cpp](https://github.com/ggml-org/llama.cpp)*)
 
@@ -120,23 +137,30 @@ mkdir -p build/bin
 
 ### Step 4: Download a Prebuilt Binary
 
-Download the most suitable package from the llama.cpp [releases page](https://github.com/ggml-org/llama.cpp/releases).
+Download the most recent and suitable package from the llama.cpp [releases page](https://github.com/ggml-org/llama.cpp/releases).
 
-Available options include:
+For my lazy people, available package options from llama.cpp include:
 
-[Ubuntu x64 (CPU)](https://github.com/ggml-org/llama.cpp/releases/download/b9444/llama-b9444-bin-ubuntu-x64.tar.gz)
+[Ubuntu x64 (CPU)](https://github.com/ggml-org/llama.cpp/releases/download/b9628/llama-b9628-bin-ubuntu-x64.tar.gz)
 
-[Ubuntu arm64 (CPU)](https://github.com/ggml-org/llama.cpp/releases/download/b9444/llama-b9444-bin-ubuntu-arm64.tar.gz)
+[Ubuntu arm64 (CPU)](https://github.com/ggml-org/llama.cpp/releases/download/b9628/llama-b9628-bin-ubuntu-arm64.tar.gz)
 
-[Ubuntu s390x (CPU)](https://github.com/ggml-org/llama.cpp/releases/download/b9444/llama-b9444-bin-ubuntu-s390x.tar.gz)
+[Ubuntu s390x (CPU)](https://github.com/ggml-org/llama.cpp/releases/download/b9628/llama-b9628-bin-ubuntu-s390x.tar.gz)
 
-[Ubuntu x64 (Vulkan)](https://github.com/ggml-org/llama.cpp/releases/download/b9444/llama-b9444-bin-ubuntu-vulkan-x64.tar.gz)
+[Ubuntu x64 (Vulkan)](https://github.com/ggml-org/llama.cpp/releases/download/b9628/llama-b9628-bin-ubuntu-vulkan-x64.tar.gz)
 
-[Ubuntu arm64 (Vulkan)](https://github.com/ggml-org/llama.cpp/releases/download/b9444/llama-b9444-bin-ubuntu-vulkan-arm64.tar.gz)
+[Ubuntu arm64 (Vulkan)](https://github.com/ggml-org/llama.cpp/releases/download/b9628/llama-b9628-bin-ubuntu-vulkan-arm64.tar.gz)
 
-[Ubuntu x64 (ROCm 7.2)](https://github.com/ggml-org/llama.cpp/releases/download/b9444/llama-b9444-bin-ubuntu-rocm-7.2-x64.tar.gz)
+[Ubuntu x64 (ROCm 7.2)](https://github.com/ggml-org/llama.cpp/releases/download/b9628/llama-b9628-bin-ubuntu-rocm-7.2-x64.tar.gz)
 
-[Ubuntu x64 (OpenVINO)](https://github.com/ggml-org/llama.cpp/releases/download/b9444/llama-b9444-bin-ubuntu-openvino-2026.0-x64.tar.gz)
+[Ubuntu x64 (OpenVINO)](https://github.com/ggml-org/llama.cpp/releases/download/b9628/llama-b9628-bin-ubuntu-openvino-2026.0-x64.tar.gz)
+
+[Ubuntu x64 (SYCL FP32)](https://github.com/ggml-org/llama.cpp/releases/download/b9628/llama-b9628-bin-ubuntu-sycl-fp32-x64.tar.gz)
+
+[Ubuntu x64 (SYCL FP16)](https://github.com/ggml-org/llama.cpp/releases/download/b9628/llama-b9628-bin-ubuntu-sycl-fp16-x64.tar.gz)
+
+> **Note:**
+> This is NOT updated since Jun 14 (version: llama-b9628).
 
 Once finised, extract the downloaded archive and navigate to the extracted `llama-bXXXX` directory.
 
